@@ -1,0 +1,76 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: research
+      POSTGRES_PASSWORD: research
+      POSTGRES_DB: research_agent
+    ports: ["5432:5432"]
+    volumes: ["pgdata:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U research"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: ../docker/backend.Dockerfile
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql+psycopg2://research:research@db:5432/research_agent
+    ports: ["8000:8000"]
+    depends_on:
+      db:
+        condition: service_healthy
+    command: >
+      sh -c "alembic upgrade head &&
+             uvicorn app.main:app --host 0.0.0.0 --port 8000"
+
+  frontend:
+    image: python:3.12-slim
+    working_dir: /app
+    volumes: ["./frontend:/app"]
+    ports: ["5500:5500"]
+    command: python3 -m http.server 5500
+
+  # Keyless, self-hosted live web search (see docs/architecture.md "Keyless
+  # live search and reasoning"). Not started by a plain `docker compose up`
+  # since local_corpus is the zero-setup default; run
+  # `docker compose --profile search up` to include this, then set
+  # SEARCH_PROVIDER=searxng.
+  searxng:
+    image: searxng/searxng:latest
+    profiles: ["search"]
+    ports: ["8888:8080"]
+    volumes:
+      - ./docker/searxng-settings.yml:/etc/searxng/settings.yml:ro
+    environment:
+      - SEARXNG_BASE_URL=http://localhost:8888/
+
+  # Optional horizontal-scaling profile (see docs/scaling.md and
+  # backend/app/workers/celery_tasks.py). Not started by a plain
+  # `docker compose up`; run `docker compose --profile scale up` to include
+  # these.
+  redis:
+    image: redis:7-alpine
+    profiles: ["scale"]
+    ports: ["6379:6379"]
+
+  worker:
+    build:
+      context: ./backend
+      dockerfile: ../docker/backend.Dockerfile
+    profiles: ["scale"]
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql+psycopg2://research:research@db:5432/research_agent
+      REDIS_URL: redis://redis:6379/0
+    depends_on: [db, redis]
+    command: celery -A app.workers.celery_tasks.celery_app worker --loglevel=info --queues=research
+    deploy:
+      replicas: 3
+
+volumes:
+  pgdata:

@@ -1,0 +1,23 @@
+# Minimal SearXNG config override. `use_default_settings: true` inherits
+# SearXNG's full sane default configuration; everything below is only the
+# specific keys this repo needs to change.
+#
+# The one change that matters for this project: SearXNG's JSON API is OFF
+# by default on a stock install (only HTML is enabled) -- requesting
+# format=json without this returns 403. See:
+# https://docs.searxng.org/dev/search_api.html
+use_default_settings: true
+
+general:
+  instance_name: "enterprise-research-agent-searxng"
+
+search:
+  formats:
+    - html
+    - json
+
+server:
+  # Generate your own for anything beyond local/throwaway use:
+  #   openssl rand -hex 32
+  secret_key: "change-this-to-a-random-value-with-openssl-rand-hex-32"
+  limiter: false  # local single-user instance; the public-instance rate limiter isn't needed here

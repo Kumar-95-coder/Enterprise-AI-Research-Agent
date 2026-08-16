@@ -1,0 +1,172 @@
+[
+  {
+    "title": "KPMG Global Tech Report 2026: Industrial Manufacturing",
+    "url": "https://kpmg.com/xx/en/our-insights/ai-and-technology/industrial-manufacturing-tech-report.html",
+    "publisher": "KPMG",
+    "author": null,
+    "publication_date": "2026-04-16",
+    "source_type": "industry_report",
+    "retrieved_via": "web_search",
+    "content": "KPMG's 2026 industrial manufacturing survey reports that nearly half of manufacturing executives, 49%, already have AI use cases actively delivering business value, a rate above the cross-sector average. The report finds manufacturers are shifting from isolated pilots toward enterprise-wide AI platforms spanning plants and functions. It highlights investment in resilient data infrastructure to support AI, digital twins, and edge computing as a key factor behind measurable AI ROI."
+  },
+  {
+    "title": "Manufacturing's 2026 Mandate: From AI Pilot to Agentic Profit",
+    "url": "https://www.dataiku.com/stories/blog/manufacturing-ai-trends-2026",
+    "publisher": "Dataiku",
+    "author": null,
+    "publication_date": "2026-01-23",
+    "source_type": "web",
+    "retrieved_via": "web_search",
+    "content": "Dataiku reports that top manufacturing performers in 2026 are scaling agentic AI for autonomous maintenance scheduling and supply chain orchestration, while laggards remain stuck in pilot stages. The article cites an MIT study finding that only about 5% of generative AI projects, including agentic ones, reach scale across industries. It also cites a Gartner prediction that over 40% of agentic AI projects will be cancelled by the end of 2027 due to rising costs, unclear business value, or weak risk controls."
+  },
+  {
+    "title": "How AI Is Reshaping Manufacturing Operations",
+    "url": "https://marketjoy.com/ai-manufacturing-operations/",
+    "publisher": "MarketJoy",
+    "author": null,
+    "publication_date": "2026-07-02",
+    "source_type": "news_business",
+    "retrieved_via": "web_search",
+    "content": "Citing the 2026 State of Manufacturing and Supply Chain Report, MarketJoy reports that 97% of manufacturing and supply chain executives have adopted AI into their operational processes, and 95% consider AI adoption necessary to remain competitive. The piece states AI is no longer confined to isolated pilots but is now embedded in everyday production and supply chain workflows. Quality control and inspection is identified as the manufacturing function where AI is expected to have the largest influence."
+  },
+  {
+    "title": "Tech Trends 2026: How AI, Data and Security Are Reshaping Manufacturing",
+    "url": "https://biztechmagazine.com/article/2025/12/tech-trends-2026-how-ai-data-and-security-are-reshaping-manufacturing",
+    "publisher": "BizTech Magazine",
+    "author": null,
+    "publication_date": "2025-12-30",
+    "source_type": "news_business",
+    "retrieved_via": "web_search",
+    "content": "BizTech Magazine reports that IDC expects AI to reshape manufacturing workforces through continuous human-robot learning and personalized training, reducing downtime and speeding skill development. The article notes IDC's projection that by 2028, 65% of the largest 1,000 global manufacturers will use AI agents in design and simulation tools. Increased reliance on simulation and digital twins is described as a response to the high cost of production downtime."
+  },
+  {
+    "title": "IDC: Charting the AI-driven future of manufacturing",
+    "url": "https://www.idc.com/resource-center/blog/charting-the-ai-driven-future-of-manufacturing/",
+    "publisher": "IDC",
+    "author": null,
+    "publication_date": "2026-04-07",
+    "source_type": "industry_report",
+    "retrieved_via": "web_search",
+    "content": "IDC's 2026 Manufacturing FutureScape describes AI as becoming foundational to manufacturing strategy, but cautions that realizing that potential requires deliberate cultural change and sustained investment. The report identifies reluctance to share data across teams, uncertainty about AI's impact on jobs, and uneven governance as barriers still slowing adoption. IDC frames manufacturers as managing two overlapping transformations at once: migration to cloud and adoption of AI."
+  },
+  {
+    "title": "2026 Manufacturing Industry Outlook",
+    "url": "https://www.deloitte.com/us/en/insights/industry/manufacturing-industrial-products/manufacturing-industry-outlook.html",
+    "publisher": "Deloitte Insights",
+    "author": null,
+    "publication_date": "2026-06-23",
+    "source_type": "industry_report",
+    "retrieved_via": "web_search",
+    "content": "Deloitte's 2026 Manufacturing Industry Outlook identifies continued investment in agentic AI as a driver of competitiveness and agility for smart manufacturing and operations. The report also flags workforce planning as a growing challenge as skill requirements shift alongside AI-driven investment in supply chain tools and aftermarket services. Deloitte frames sustained smart-manufacturing investment as a response to persistent supply chain complexity and uncertainty."
+  },
+  {
+    "title": "Future of Smart Manufacturing: AI Trends Driving Industrial Transformation in 2026",
+    "url": "https://ifactoryapp.com/article/future-of-smart-manufacturing-ai-trends-industrial-transformation-2026",
+    "publisher": "iFactoryApp",
+    "author": null,
+    "publication_date": "2026-04-20",
+    "source_type": "web",
+    "retrieved_via": "web_search",
+    "content": "This report estimates global AI-in-manufacturing spending will grow from about $33 billion in 2024 to roughly $366 billion by 2032, a compound annual growth rate near 36%. Citing McKinsey, Deloitte, and the World Economic Forum's Global Lighthouse Network, it states factories that successfully scale AI are achieving productivity gains of 20-30% and cutting machine downtime by up to 50%. It also notes a Redwood Software survey in which 98% of manufacturers are exploring AI but only 20% report being fully prepared to deploy it."
+  },
+  {
+    "title": "Top 5 AI Trends Transforming Manufacturing 2026",
+    "url": "https://www.demystifyingplm.com/insights/top-5-ai-trends-manufacturing",
+    "publisher": "DemystifyingPLM",
+    "author": "Michael Finocchiaro",
+    "publication_date": "2026-04-15",
+    "source_type": "web",
+    "retrieved_via": "web_search",
+    "content": "DemystifyingPLM reports that job shops using AI-driven predictive production scheduling see cycle-time compression of 15-40% within six months of deployment. Separately, manufacturers deploying AI-based visual quality inspection across 100% of output are reported to achieve an 80-95% reduction in defects that escape to customers. The article frames these gains as driven by optimization algorithms that reorder production jobs in seconds rather than relying on manually built schedules."
+  },
+  {
+    "title": "Reducing downtime with AI-driven predictive maintenance in Manufacturing",
+    "url": "https://www.koerber.com/en/insights-and-events/supply-chain-insights/ai-predictive-maintenance-in-manufacturing",
+    "publisher": "Koerber",
+    "author": null,
+    "publication_date": null,
+    "source_type": "web",
+    "retrieved_via": "web_search",
+    "content": "Koerber cites McKinsey research finding that AI-driven predictive maintenance can reduce equipment downtime by up to 50% and lower maintenance costs by 10-40%. The article also references a Deloitte finding that predictive maintenance can deliver roughly a tenfold increase in ROI by avoiding costly equipment failures. It attributes these gains to earlier detection of developing faults, which allows maintenance to be scheduled before a breakdown disrupts production."
+  },
+  {
+    "title": "To Reduce Equipment Downtime, Manufacturers Turn to AI Predictive Maintenance Tools",
+    "url": "https://biztechmagazine.com/article/2025/03/reduce-equipment-downtime-manufacturers-turn-ai-predictive-maintenance-tools",
+    "publisher": "BizTech Magazine",
+    "author": null,
+    "publication_date": "2025-10-16",
+    "source_type": "news_business",
+    "retrieved_via": "web_search",
+    "content": "BizTech Magazine reports an IBM estimate that AI and IoT sensor data on the shop floor can reduce downtime by 50%, cut breakdowns by 70%, and lower overall maintenance cost by 25%. A Toyota North America manager is cited describing predictive tools that shift maintenance work from reactive to proactive by monitoring equipment health continuously. The article credits Oracle and Intel research for ranking predictive maintenance above older maintenance models on cost and reliability."
+  },
+  {
+    "title": "AI-Powered Predictive Maintenance in Manufacturing",
+    "url": "https://www.alphabold.com/ai-powered-predictive-maintenance-in-manufacturing/",
+    "publisher": "AlphaBOLD",
+    "author": null,
+    "publication_date": "2026-06-18",
+    "source_type": "web",
+    "retrieved_via": "web_search",
+    "content": "AlphaBOLD describes a case in which a manufacturer reported a 30% reduction in maintenance costs alongside a 50% decrease in downtime after adopting AI-driven maintenance. Citing Deloitte, it states unplanned downtime costs industrial manufacturers roughly $50 billion annually in aggregate, and notes industry estimates that unplanned downtime can cost up to $1 million per hour in high-precision operations. It also cites McKinsey figures of up to 40% lower maintenance costs and up to 50% less downtime."
+  },
+  {
+    "title": "Using AI in Predictive Maintenance: What You Need to Know",
+    "url": "https://www.oracle.com/scm/ai-predictive-maintenance/",
+    "publisher": "Oracle",
+    "author": null,
+    "publication_date": "2024-12-23",
+    "source_type": "web",
+    "retrieved_via": "web_search",
+    "content": "Oracle cites a 2022 Deloitte study finding that predictive-maintenance AI tools can raise labor productivity by 5-20% and reduce downtime by as much as 15%. The article also cites U.S. Occupational Safety and Health Administration figures reporting about 18,000 worker injuries and over 800 deaths per year connected to machinery, framing predictive maintenance as a safety measure as well as a cost measure. This 15% downtime-reduction estimate is notably more conservative than the 50% figures reported elsewhere in this dataset, illustrating how methodology and study scope affect reported results."
+  },
+  {
+    "title": "From Downtime to Uptime: Using AI for Predictive Maintenance in Manufacturing",
+    "url": "https://www.imec.org/from-downtime-to-uptime-using-ai-for-predictive-maintenance-in-manufacturing/",
+    "publisher": "IMEC",
+    "author": null,
+    "publication_date": "2025-08-05",
+    "source_type": "web",
+    "retrieved_via": "web_search",
+    "content": "IMEC, writing for small and mid-sized manufacturers, reports average savings of up to 40% versus reactive maintenance approaches and up to 50% less downtime when AI-based predictive maintenance is adopted. The guide recommends starting with a single pilot machine, the one that is most costly when it fails, to calculate downtime costs before scaling AI-based monitoring further across a plant."
+  },
+  {
+    "title": "MIT Study: 95% of Companies Fail to Get ROI from AI Investments",
+    "url": "https://www.linkedin.com/posts/jdmeier_most-leaders-think-their-ai-problem-is-technology-activity-7425575197589774336-QR6R",
+    "publisher": "LinkedIn (citing MIT Project NANDA)",
+    "author": "J.D. Meier",
+    "publication_date": "2026-02-06",
+    "source_type": "news_business",
+    "retrieved_via": "web_search",
+    "content": "Summarizing MIT Project NANDA's 'The GenAI Divide: State of AI in Business 2025' study, this post reports that 95% of the 300 public AI initiatives examined achieved zero measurable return despite an estimated $30-40 billion in enterprise generative-AI investment. The researchers, who also interviewed 150 executives, attribute the gap primarily to implementation choices such as building custom tools instead of buying proven ones and deploying AI in lower-value functions, rather than to underlying model quality."
+  },
+  {
+    "title": "Manufacturers Rushed Into AI. The Returns Aren't Showing Up",
+    "url": "https://www.forbes.com/sites/robertszczerba/2026/07/09/manufacturers-rushed-into-ai-the-returns-arent-showing-up/",
+    "publisher": "Forbes",
+    "author": "Robert Szczerba",
+    "publication_date": "2026-07-10",
+    "source_type": "news_business",
+    "retrieved_via": "web_search",
+    "content": "Forbes reports that a recent survey found zero manufacturers reporting significant revenue or cost savings from AI, even though 64% cited efficiency gains and AI adoption in manufacturing operations continues to accelerate. Nearly half of manufacturing AI projects remain stuck in pilot stages. The article attributes the disconnect to AI being purchased out of competitive anxiety rather than to solve a costed business problem, with projects often lacking defined financial metrics or executive ownership."
+  },
+  {
+    "title": "How to Prove AI Value in Manufacturing",
+    "url": "https://www.iiot-world.com/artificial-intelligence-ml/artificial-intelligence/how-to-prove-ai-value-manufacturing/",
+    "publisher": "IIoT World",
+    "author": null,
+    "publication_date": "2026-07-29",
+    "source_type": "web",
+    "retrieved_via": "web_search",
+    "content": "IIoT World reports that between 80% and 95% of organizations describe limited financial value realized from AI, and that only 11% of CFOs say they can concretely measure AI's return on investment. Citing a Gartner poll of 1,229 respondents, it identifies selection of the wrong use cases, inadequate value assessment, and weak data strategy as the leading causes of failure to show financial value, ranking technology limitations last among the reasons given."
+  },
+  {
+    "title": "The 12% Problem: Why Only A Fraction Of AI Investments Deliver Measurable Returns",
+    "url": "https://www.forbes.com/sites/guneyyildiz/2026/01/28/56-of-ceos-see-zero-roi-from-ai-heres-what-the-12-who-profit-do-differently/",
+    "publisher": "Forbes",
+    "author": "Guney Yildiz",
+    "publication_date": "2026-01-28",
+    "source_type": "news_business",
+    "retrieved_via": "web_search",
+    "content": "Citing PwC's 2026 CEO Survey, Forbes reports that 56% of CEOs across industries saw neither increased revenue nor decreased costs from AI in the prior 12 months, while only 12% achieved both. The piece argues the gap is structural rather than a matter of AI access: CEOs reporting financial returns were two to three times more likely to have embedded AI extensively into decision-making and demand generation rather than deploying it only at the pilot level."
+  }
+]

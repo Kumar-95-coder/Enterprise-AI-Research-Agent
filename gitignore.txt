@@ -1,0 +1,32 @@
+# Environments
+venv/
+env/
+.venv/
+*.env
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+*.egg-info/
+build/
+dist/
+
+# Databases (local dev only — never commit these)
+*.db
+*.sqlite3
+
+# Node (if frontend tooling is ever added)
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp
