@@ -1,0 +1,410 @@
+================================================================
+ ENTERPRISE AI RESEARCH AGENT
+ SETUP & EXECUTION GUIDE  -  Windows Command Prompt (cmd.exe)
+================================================================
+
+This guide is written to be complete from a clean start. If you've
+already done some of these steps, just skip ahead  -  nothing here
+will break if you re-run an earlier step by accident.
+
+Every command below is typed exactly as you'd type it into cmd.exe.
+Where it matters, the expected prompt is shown so you always know
+which folder you should be standing in.
+
+
+CONTENTS
+--------
+  PART A  -  Get it running                 (required)
+  PART B  -  Verify it actually works        (recommended)
+  PART C  -  Keyless live search + reasoning (optional)
+  PART D  -  Daily use after first-time setup
+  PART E  -  Troubleshooting
+  PART F  -  Full command reference (cheat sheet)
+
+
+================================================================
+ PREREQUISITES
+================================================================
+  - Python 3.10 or newer, with "python3" working from cmd.exe
+    (you already have this  -  confirmed by your earlier venv step)
+  - The project zip, unzipped somewhere, e.g. C:\enterprise-research-agent
+  - Optional, only for Part C:
+      Docker Desktop  -> https://www.docker.com/products/docker-desktop
+      Ollama          -> https://ollama.com/download
+
+
+================================================================
+ PART A  -  GET IT RUNNING
+================================================================
+
+STEP A1. Open Command Prompt and go to the project folder
+------------------------------------------------------------
+    cd C:\enterprise-research-agent
+
+  (Adjust the path if you unzipped it somewhere else.)
+
+
+STEP A2. Move into the backend folder
+------------------------------------------------------------
+    cd backend
+
+  Your prompt should now read:
+    C:\enterprise-research-agent\backend>
+
+  Everything from here through Step A9 happens in this folder.
+
+
+STEP A3. Create and activate a virtual environment
+------------------------------------------------------------
+    python3 -m venv venv
+    venv\Scripts\activate
+
+  Your prompt should now read:
+    (venv) C:\enterprise-research-agent\backend>
+
+  If you see (venv) at the start of the line, it worked.
+
+
+STEP A4. Install the Python dependencies
+------------------------------------------------------------
+    pip install -r requirements.txt
+
+  This takes a minute or two the first time.
+
+
+STEP A5. Install the spaCy language model (real NER, ~13MB)
+------------------------------------------------------------
+    python3 -m spacy download en_core_web_sm
+
+  If that command fails for any reason, use this instead:
+    pip install https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl
+
+
+STEP A6. Create your configuration file
+------------------------------------------------------------
+    copy ..\.env.example .env
+
+  NOT "cp"  -  Windows Command Prompt uses "copy".
+  This must be run while you are inside the backend folder  -  it
+  creates backend\.env, which is specifically where the app looks
+  for its settings. Running it from anywhere else will either fail
+  or create the file in the wrong place.
+
+  IMPORTANT: don't run this command again later after you've
+  customized .env (see Part C)  -  it will overwrite your changes
+  back to the defaults.
+
+
+STEP A7. Create the database
+------------------------------------------------------------
+    alembic upgrade head
+
+  This creates backend\research_agent.db with all 16 tables.
+
+
+STEP A8. (Recommended) Run the automated tests
+------------------------------------------------------------
+    pytest tests/ -v
+
+  Expected result: 45 passed
+  If this doesn't say 45 passed, something upstream (Steps A3-A7)
+  needs attention before continuing.
+
+
+STEP A9. Start the backend server
+------------------------------------------------------------
+    uvicorn app.main:app --reload --port 8000
+
+  Leave this window open  -  this IS the running application.
+  You should see a line ending in:
+    Uvicorn running on http://0.0.0.0:8000
+
+  Confirm it's alive by opening this in a browser:
+    http://localhost:8000/docs
+
+
+STEP A10. Start the frontend  -  OPEN A NEW COMMAND PROMPT WINDOW
+------------------------------------------------------------
+  Do not close the window from Step A9. Open a second, separate
+  Command Prompt window for this:
+
+    cd C:\enterprise-research-agent\frontend
+    python3 -m http.server 5500
+
+  Leave this window open too.
+
+
+STEP A11. Open the app
+------------------------------------------------------------
+  In your browser, go to:
+    http://localhost:5500
+
+  Type a research question (e.g. "What AI technologies are
+  changing manufacturing?"), click Start Research, and watch it
+  work through the pipeline live.
+
+  To stop everything later: Ctrl+C in each of the two windows.
+
+
+================================================================
+ PART B  -  VERIFY IT ACTUALLY WORKS
+================================================================
+Run these after Step A9 (backend must be running). Use a THIRD
+Command Prompt window so you don't disturb the two running servers.
+
+TEST 1  -  A real research job
+------------------------------------------------------------
+    curl -X POST http://localhost:8000/api/research -H "Content-Type: application/json" -d "{\"question\": \"What AI technologies are changing manufacturing?\"}"
+
+  Note the "id" value in the response, then check it:
+    curl http://localhost:8000/api/research/PASTE_ID_HERE
+
+  Expect: status eventually reads COMPLETED, with source_count
+  around 14, finding_count around 36, several claims and
+  contradictions. If source_count stays 0, something is wrong
+  with the search provider.
+
+
+TEST 2  -  Traceability (can it prove where an answer came from?)
+------------------------------------------------------------
+    curl http://localhost:8000/api/research/PASTE_ID_HERE/claims
+
+  Copy any "id" from that list, then:
+    curl http://localhost:8000/api/claims/PASTE_CLAIM_ID_HERE
+
+  Expect a "supporting" section containing real evidence text and
+  a real, clickable source URL.
+
+
+TEST 3  -  Knowledge reuse
+------------------------------------------------------------
+  Submit a second, related question:
+    curl -X POST http://localhost:8000/api/research -H "Content-Type: application/json" -d "{\"question\": \"How is machine learning reducing equipment downtime?\"}"
+
+  Check its sources:
+    curl http://localhost:8000/api/research/PASTE_NEW_ID_HERE/sources
+
+  Expect some entries with "is_new_for_this_job": false  -  meaning
+  they were reused from the first job's results, not re-fetched.
+
+
+TEST 4  -  Honesty on an unseeded topic (should NOT make things up)
+------------------------------------------------------------
+    curl -X POST http://localhost:8000/api/research -H "Content-Type: application/json" -d "{\"question\": \"Which AI applications are producing measurable ROI in healthcare?\"}"
+
+  Expect source_count: 0 once it completes, and every sub-question
+  reported as an evidence gap  -  NOT confident-sounding healthcare
+  claims. Zero here is the correct, honest answer.
+
+
+TEST 5  -  Deliberately break it
+------------------------------------------------------------
+    curl -X POST http://localhost:8000/api/research -d "{\"question\": \"hi\"}"
+
+  Expect an error response with HTTP status 422 (question too
+  short)  -  not a crash, not a fake result.
+
+
+================================================================
+ PART C  -  KEYLESS LIVE SEARCH + REASONING (OPTIONAL)
+================================================================
+Everything above runs with zero API keys using built-in defaults:
+  LLM_PROVIDER=heuristic     (template-based reasoning)
+  SEARCH_PROVIDER=local_corpus  (17 pre-loaded sources, manufacturing-only)
+
+The two settings below are INDEPENDENT of each other  -  enable
+either one alone, both, or neither. Neither needs an API key or
+costs any money.
+
+  SEARCH_PROVIDER=searxng   -> lets you ask about ANY topic, not
+                               just manufacturing. This is probably
+                               the one you actually want.
+  LLM_PROVIDER=ollama       -> makes the written summaries read
+                               like real prose instead of filled-in
+                               templates. Independent of the above.
+
+
+STEP C1. Enable live search via SearXNG (any topic, not just manufacturing)
+------------------------------------------------------------
+  1. Install Docker Desktop if you haven't already:
+       https://www.docker.com/products/docker-desktop
+     Open it and wait until it says "Docker Desktop is running".
+
+  2. In Command Prompt:
+       cd C:\enterprise-research-agent
+       docker compose --profile search up -d searxng
+
+  3. Confirm it's working  -  open in a browser:
+       http://localhost:8888
+     You should see a search page.
+
+  4. Make it survive reboots (optional but recommended):
+     Open docker-compose.yml in Notepad, find the "searxng:"
+     section, and add one line so it looks like this:
+
+       searxng:
+         image: searxng/searxng:latest
+         profiles: ["search"]
+         restart: unless-stopped        <- add this line
+         ports: ["8888:8080"]
+         ...
+
+     Then in Docker Desktop: Settings -> General -> turn on
+     "Start Docker Desktop when you sign in to your computer".
+
+
+STEP C2. Enable local reasoning via Ollama (better-written summaries)
+------------------------------------------------------------
+  1. Download and run the installer:
+       https://ollama.com/download
+     The Windows app auto-starts in the background on login by
+     default  -  you generally don't need to start it manually.
+
+  2. Confirm it's running:
+       tasklist | findstr ollama
+     If nothing shows up, open the Ollama app once from the Start
+     Menu; after that it stays running.
+
+  3. Download a model  -  this is a ONE-TIME step, not something you
+     repeat each session (the model stays on disk once downloaded):
+       ollama pull llama3.2
+
+     (About 2GB. Smaller/faster option: "ollama pull qwen2.5:3b".
+     Larger/stronger option: "ollama pull llama3.1".)
+
+
+STEP C3. Point the app at whichever you enabled
+------------------------------------------------------------
+  1. Open backend\.env in Notepad:
+       notepad C:\enterprise-research-agent\backend\.env
+
+  2. Add or edit these lines (include only the ones you set up):
+       LLM_PROVIDER=ollama
+       SEARCH_PROVIDER=searxng
+
+     Leaving a line out, or setting it back to "heuristic" /
+     "local_corpus", just uses the free default for that piece.
+
+  3. Save and close Notepad.
+
+  4. Restart the backend so it picks up the change  -  go to the
+     Command Prompt window running uvicorn (from Step A9), press
+     Ctrl+C, then run again:
+       uvicorn app.main:app --reload --port 8000
+
+     (.env is only read at startup  -  a plain code edit is picked
+     up automatically by --reload, but a .env edit needs this
+     manual restart.)
+
+
+STEP C4. Confirm it's actually using them
+------------------------------------------------------------
+    curl http://localhost:8000/
+
+  Expect to see "llm_provider": "ollama" and/or
+  "search_provider": "searxng" in the response, matching whatever
+  you set in Step C3.
+
+  Now try Test 4 from Part B again  -  with SEARCH_PROVIDER=searxng
+  active, that healthcare question should return REAL results
+  instead of an evidence gap.
+
+
+================================================================
+ PART D  -  DAILY USE (after everything is set up once)
+================================================================
+Once Parts A and C are done, you don't repeat most of it. Each
+time you want to use the app:
+
+  Window 1:
+    cd C:\enterprise-research-agent\backend
+    venv\Scripts\activate
+    uvicorn app.main:app --reload --port 8000
+
+  Window 2:
+    cd C:\enterprise-research-agent\frontend
+    python3 -m http.server 5500
+
+  Then open http://localhost:5500
+
+That's it. Your venv, .env, database, Ollama model, and (if you
+added the restart policy) SearXNG container all persist between
+sessions on their own.
+
+
+================================================================
+ PART E  -  TROUBLESHOOTING
+================================================================
+
+"'cp' is not recognized..."
+  Use "copy" instead of "cp"  -  this is Windows Command Prompt,
+  not Mac/Linux.
+
+".env changes don't seem to do anything"
+  Make sure you edited backend\.env specifically (not a copy at
+  the project root), and that you restarted uvicorn afterward  - 
+  .env is only read once, at startup.
+
+"Could not reach SearXNG" error when running a research job
+  Docker Desktop isn't running, or the container isn't started.
+  Run: docker compose --profile search up -d searxng
+  and confirm http://localhost:8888 loads in a browser first.
+
+"Could not reach Ollama" error
+  Check: tasklist | findstr ollama
+  If empty, open the Ollama app from the Start Menu once.
+
+Port already in use / server won't start
+  Something else is already using 8000 or 5500. Either close
+  whatever that is, or run on a different port:
+    uvicorn app.main:app --reload --port 8001
+  (and update API_BASE in frontend\index.html to match).
+
+"alembic upgrade head" errors, or the database seems broken
+  Delete backend\research_agent.db and run "alembic upgrade head"
+  again  -  this rebuilds it from scratch with no data loss to
+  anything that matters (it's your local dev database).
+
+pytest doesn't show "45 passed"
+  Re-check Steps A4 and A5 completed without errors  -  a missing
+  dependency or the spaCy model not installing correctly is the
+  most common cause.
+
+
+================================================================
+ PART F  -  FULL COMMAND REFERENCE (copy-paste cheat sheet)
+================================================================
+
+--- First-time setup ---
+cd C:\enterprise-research-agent\backend
+python3 -m venv venv
+venv\Scripts\activate
+pip install -r requirements.txt
+python3 -m spacy download en_core_web_sm
+copy ..\.env.example .env
+alembic upgrade head
+pytest tests/ -v
+
+--- Start the app (two windows) ---
+:: Window 1
+cd C:\enterprise-research-agent\backend
+venv\Scripts\activate
+uvicorn app.main:app --reload --port 8000
+
+:: Window 2
+cd C:\enterprise-research-agent\frontend
+python3 -m http.server 5500
+
+--- Optional: keyless live search (SearXNG) ---
+docker compose --profile search up -d searxng
+
+--- Optional: keyless live reasoning (Ollama) ---
+ollama pull llama3.2
+
+--- After editing backend\.env ---
+:: Ctrl+C in the uvicorn window, then:
+uvicorn app.main:app --reload --port 8000
+
+================================================================
+ END OF GUIDE
+================================================================
